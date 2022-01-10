@@ -1,18 +1,25 @@
-import React, { useContext } from 'react';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
 import { Link, Redirect } from 'react-router-dom';
-import FormInput from './../components/FormInput';
-import CTA from './../components/CTA';
-import Prompt from './../components/Prompt';
-import ConfirmPasswordInput from './../components/ConfirmPasswordInput';
-import Error from './../components/Error';
-import useForm from './../hooks/useForm';
-import useAuth from './../hooks/useAuth';
-import { UserContext } from './../hooks/UserContext';
+import useForm from '../hooks/useForm';
+import useAuth from '../hooks/useAuth';
+import Error from '../components/Error';
+import { UserContext } from '../hooks/UserContext';
 
 
 export default function Register() {
 
-    const { user } = useContext(UserContext);
+    const { user } = React.useContext(UserContext);
 
     const { values, handleChange } = useForm({
         initialValues: {
@@ -31,42 +38,107 @@ export default function Register() {
     }
     if (!user) {
         return (
-            <div className="page" style={{ justifyContent: 'center' }}>
-                <div className="inlineForm">
-                    <h3>Register</h3>
-                    <div className="inlineForm__notif">
-                        {error && <Error error={error.messages} />}
-                    </div>
-                    <form onSubmit={handleRegister}>
-                        <FormInput type={"text"}
-                            placeholder={"Email"}
-                            name={"email"}
-                            value={values.email}
-                            handleChange={handleChange} />
-
-                        <FormInput type={"text"}
-                            placeholder={"Username"}
-                            name={"username"}
-                            value={values.username}
-                            handleChange={handleChange} />
-
-                        <ConfirmPasswordInput type={"password"}
-                            placeholder={"Password"} placeholderConfirm={"Confirm password"}
-                            name={"password"} nameConfirm={"passwordConfirm"}
-                            value={values.password} valueConfirm={values.passwordConfirm}
-                            handleChange={handleChange} />
-
-                        <div className="inlineForm__submit">
-                            <Link to='/login'>
-                                <Prompt prompt={"Existing account? Log in."} />
-                            </Link>
-                            <CTA name={"register"} type={"submit"}
+            <Grid container component="main" sx={{ height: '100vh' }}>
+                <CssBaseline />
+                <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+                    <Box
+                        sx={{
+                            my: 8,
+                            mx: 4,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign up
+                        </Typography>
+                        <Box component="form" noValidate onSubmit={handleRegister} sx={{ mt: 1, mr: 15, ml: 15 }}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                value={values.email}
+                                onChange={handleChange}
                             />
-                        </div>
-                    </form>
-                </div>
-            </div>
-        )
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
+                                autoFocus
+                                value={values.username}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                value={values.password}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="passwordConfirm"
+                                label="Password Confirmation"
+                                type="password"
+                                id="passwordConfirm"
+                                autoComplete="current-password"
+                                value={values.passwordConfirm}
+                                onChange={handleChange}
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign In
+                            </Button>
+                            <Grid container>
+                                <Grid item>
+                                    <Link to="/login">
+                                        {"Already have an account? Sign In"}
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Box>
+                </Grid>
+                <Grid
+                    item
+                    xs={false}
+                    sm={4}
+                    md={6}
+                    sx={{
+                        backgroundImage: 'url(https://source.unsplash.com/random)',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: (t) =>
+                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                />
+            </Grid>
+        );
     }
     else {
         return <Redirect to='/home' />

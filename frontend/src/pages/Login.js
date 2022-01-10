@@ -1,17 +1,24 @@
-import React, { useContext } from 'react';
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
 import { Link, Redirect } from 'react-router-dom';
-import useForm from './../hooks/useForm';
-import useAuth from './../hooks/useAuth';
-import Error from './../components/Error';
-import { UserContext } from './../hooks/UserContext';
-import { Col, Row, Container, Form, Button, Image } from 'react-bootstrap';
-import loginImage from "../static/loginImage.png"
+import useForm from '../hooks/useForm';
+import useAuth from '../hooks/useAuth';
+import Error from '../components/Error';
+import { UserContext } from '../hooks/UserContext';
 
 
 
 export default function Login() {
-
-    const { user } = useContext(UserContext);
+    const { user } = React.useContext(UserContext);
 
     const { values, handleChange } = useForm({
         initialValues: {
@@ -23,56 +30,97 @@ export default function Login() {
     const { loginUser, error } = useAuth();
 
     const handleLogin = async (e) => {
-        // console.log(e);
-        // console.log(values);
         e.preventDefault();
         await loginUser(values);
     }
     if (!user) {
         return (
-            <Container fluid>
-                <Row>
-                    <Col className="d-flex align-items-center justify-content-center vh-100">
-                        <Form onSubmit={handleLogin}>
-                            {/* form text Login back to your account */}
-                            <Form.Text className="text-muted">
-                                Login to your account
-                            </Form.Text>
-
-                            <div className="inlineForm__notif">
-                                {error && <Error error={error.messages} />}
-                            </div>
-
-                            {/* form input username */}
-                            <Form.Group controlId="formBasicUsername">
-                                <Form.Label>Username</Form.Label>
-                                <Form.Control type="text" placeholder="Enter username" value={values.username} onChange={handleChange} name="username" />
-                            </Form.Group>
-
-                            {/* form input password */}
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Enter password" value={values.password} onChange={handleChange} name="password" />
-                            </Form.Group>
-
-                            <Row className="align-items-center justify-content-between">
-                                <Col xl="auto" className="my-1">
-                                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                        <Form.Check type="checkbox" label="Remember me" />
-                                    </Form.Group>
-                                </Col>
-                                <Col xl="auto" className="my-1">
-                                    <Link to="/forgot-password">Forgot password?</Link>
-                                </Col>
-                            </Row>
-                            <Button variant="primary" type="submit">
-                                Submit
+            <Grid container component="main" sx={{ height: '100vh' }}>
+                <CssBaseline />
+                <Grid
+                    item
+                    xs={false}
+                    sm={4}
+                    md={6}
+                    sx={{
+                        backgroundImage: 'url(https://source.unsplash.com/random)',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: (t) =>
+                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                />
+                <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
+                    <Box
+                        sx={{
+                            my: 8,
+                            mx: 4,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign in
+                        </Typography>
+                        <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
+                                autoFocus
+                                value={values.username}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                                value={values.password}
+                                onChange={handleChange}
+                            />
+                            {/* <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            /> */}
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign In
                             </Button>
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
-        )
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link to="/reset-password" variant="body2">
+                                        Forgot password?
+                                    </Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link to="/register">
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Box>
+                </Grid>
+            </Grid>
+        );
     }
     else {
         return <Redirect to='/home' />

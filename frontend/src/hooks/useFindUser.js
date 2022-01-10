@@ -8,7 +8,11 @@ export default function useFindUser() {
 
     useEffect(() => {
         async function findUser() {
-            await axios.get(pathString + '/api/user/')
+            await axios.get(pathString + '/api/user/', {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
                 .then(res => {
                     setUser(res.data);
                     setLoading(false);
