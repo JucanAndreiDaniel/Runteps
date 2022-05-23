@@ -20,6 +20,7 @@ from social_login.views import GoogleLogin
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/", include("course.urls")),
     path("api/", include("dj_rest_auth.urls")),
     path("api/registration/", include("dj_rest_auth.registration.urls")),
     path("api/google/", GoogleLogin.as_view(), name="google_login"),
