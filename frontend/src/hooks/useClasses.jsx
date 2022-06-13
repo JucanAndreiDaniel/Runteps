@@ -1,11 +1,8 @@
-import { useHistory } from "react-router-dom";
 import axios from "axios";
-
-import pathString from "../PathString";
 
 export const getClasses = async () => {
     try {
-        return await axios.get(pathString + "/api/course/",
+        return await axios.get(process.env.REACT_APP_API_URL + "/api/course/",
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -20,7 +17,7 @@ export const getClasses = async () => {
 }
 export const getClass = async (classId) => {
     try {
-        return await axios.get(pathString + "/api/classes/" + classId + "/",
+        return await axios.get(process.env.REACT_APP_API_URL + "/api/classes/" + classId + "/",
             {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,

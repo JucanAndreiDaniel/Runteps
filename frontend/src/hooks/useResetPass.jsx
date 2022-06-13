@@ -1,14 +1,10 @@
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-import pathString from "../PathString";
-
 export default function useResetPassword() {
-    let history = useHistory();
 
     const passwordReset = async (email) => {
         try {
-            await axios.post(pathString + "/api/password/reset/", { email: email })
+            await axios.post(process.env.REACT_APP_API_URL + "/api/password/reset/", { email: email })
         }
         catch (err) {
             console.log(err);
@@ -22,7 +18,7 @@ export default function useResetPassword() {
             data.append("new_password1", new1);
             data.append("new_password2", new2);
 
-            await axios.post(pathString + "/api/password/change/", data, {
+            await axios.post(process.env.REACT_APP_API_URL + "/api/password/change/", data, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import pathString from "../PathString";
-
 export default function useFindUser() {
   const [user, setUser] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -10,7 +8,7 @@ export default function useFindUser() {
   useEffect(() => {
     async function findUser() {
       await axios
-        .get(pathString + "/api/user/", {
+        .get(process.env.REACT_APP_API_URL + "/api/user/", {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },

@@ -1,17 +1,15 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import pathString from "../PathString";
-
 export default function useLogout() {
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const logoutUser = async () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFToken";
       axios.defaults.xsrfCookieName = "csrftoken";
       await axios
-        .post(pathString + "/api/logout/", {
+        .post(process.env.REACT_APP_API_URL + "/api/logout/", {
           config: {
             withCredentials: true,
             headers: {
@@ -21,7 +19,7 @@ export default function useLogout() {
         })
         .then((_) => {
           localStorage.removeItem("token");
-          history.go("/login");
+          navigate("/login");
         })
         .catch((err) => {
           console.log("E:" + err);

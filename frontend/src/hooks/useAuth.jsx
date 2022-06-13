@@ -1,19 +1,18 @@
 import { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { UserContext } from "./UserContext";
-import pathString from "../PathString";
 
 export default function useAuth() {
-  let history = useHistory();
+  let navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const [error, setError] = useState(null);
 
   //set user
   const setUserContext = async (username) => {
     setUser(username);
-    history.go("/");
+    navigate("/");
   };
 
   //register user
@@ -21,7 +20,7 @@ export default function useAuth() {
     const { username, email, password, passwordConfirm } = data;
 
     return axios
-      .post(pathString + "/api/registration/", {
+      .post(process.env.REACT_APP_API_URL + "/api/registration/", {
         username,
         email,
         password1: password,
@@ -41,7 +40,7 @@ export default function useAuth() {
     const { username, password } = data;
 
     return axios
-      .post(pathString + "/api/login/", {
+      .post(process.env.REACT_APP_API_URL + "/api/login/", {
         username,
         password,
       })

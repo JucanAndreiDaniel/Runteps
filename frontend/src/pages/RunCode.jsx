@@ -109,7 +109,7 @@ export default function RunCode() {
 
   function runCode() {
     axios
-      .post(pathString2 + "/compile", {
+      .post(process.env.REACT_APP_API_2_URL + "/compile", {
         code: code,
         language: langID,
         stdin: input,
