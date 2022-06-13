@@ -32,12 +32,10 @@
     "validator": "^13.7.0"
   },
   "scripts": {
-    "start": "react-app-env --env-file=development.env start",
-    "start:prod": "react-app-env --openssl-legacy-provider --env-file=production.env start",
-    "build:prod": "react-app-env --env-file=production.env",
-    "build": "react-app-env build",
-    "test": "react-app-env test",
-    "eject": "react-app-env eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
