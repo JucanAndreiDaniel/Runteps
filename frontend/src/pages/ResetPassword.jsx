@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 
 import Button from "@mui/material/Button";
@@ -129,6 +129,6 @@ export default function ResetPassword() {
 
         );
     } else {
-        return <Redirect to="/home" />;
+        return <Navigate to="/home" />;
     }
 }

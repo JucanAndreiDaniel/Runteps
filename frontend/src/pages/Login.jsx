@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -133,6 +133,6 @@ export default function Login() {
       </Grid>
     );
   } else {
-    return <Redirect to="/home" />;
+    return <Navigate to="/home" />;
   }
 }

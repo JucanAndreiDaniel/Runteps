@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { UserContext } from './hooks/UserContext';
 import PrivateRoute from './pages/PrivateRoute';
 import Register from './pages/Register';
@@ -31,7 +31,7 @@ const theme = createTheme({
       lighter: '#3e3e3e',
       default: '#323137',
       darker: '#2c2c2c',
-      darkBlue:'#0D1218',
+      darkBlue: '#0D1218',
     },
     divider: '#614dff',
   },
@@ -47,7 +47,7 @@ const theme = createTheme({
       },
     },
   },
-  });
+});
 
 function App() {
 
@@ -61,17 +61,32 @@ function App() {
 
       <Router>
         <UserContext.Provider value={{ user, setUser, isLoading }}>
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="/reset-password" component = {ResetPassword} />
-            <PrivateRoute path="/home" component={Home} />
-            <PrivateRoute path="/class" component={Class} />
-            <PrivateRoute path="/profile" component={Profile} />
-            <Route path="/code" component={RunCode} />
-            <Route component={NotFound} />
-          </Switch>
+          <Routes>
+            <Route exact path="/" element={<Landing />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/home" element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+            />
+            <Route path="/class" element={
+              <PrivateRoute>
+                <Class />
+              </PrivateRoute>
+            }
+            />
+            <Route path="/profile" element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+            />
+            <Route path="/code" element={<RunCode />} />
+            <Route element={<NotFound />} />
+          </Routes>
         </UserContext.Provider>
       </Router>
     </ThemeProvider>

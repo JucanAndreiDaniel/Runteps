@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import AppBar from "@mui/material/AppBar";
@@ -14,14 +14,14 @@ import { UserContext } from "../hooks/UserContext";
 import useLogout from "../hooks/useLogout";
 
 export default function Header() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { user } = React.useContext(UserContext);
   const { logoutUser } = useLogout();
   const runCode = () => {
-    history.push("/code");
+    navigate("/code");
   };
   const gotoProfile = () => {
-    history.push("/profile");
+    navigate("/profile");
   };
 
   const [userDropdownOpen, setUserDropdownOpen] = React.useState(false);

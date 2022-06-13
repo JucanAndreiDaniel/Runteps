@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../sections/Header";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { UserContext } from "../hooks/UserContext";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 export default function Landing() {
   const { user } = React.useContext(UserContext);
   if (user) {
-    return <Redirect to="/home" />;
+    return <Navigate to="/home" />;
   }
 
   return (
