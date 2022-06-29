@@ -13,6 +13,7 @@ import RunCode from './pages/RunCode';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Profile from './pages/Profile';
 import ResetPassword from './pages/ResetPassword';
+import Classes from './pages/Classes';
 import Class from './pages/Class';
 
 
@@ -72,7 +73,13 @@ function App() {
               </PrivateRoute>
             }
             />
-            <Route path="/class" element={
+            <Route path="/course" element={
+              <PrivateRoute>
+                <Classes />
+              </PrivateRoute>
+            }
+            />
+            <Route path="/course/:classId" element={
               <PrivateRoute>
                 <Class />
               </PrivateRoute>
