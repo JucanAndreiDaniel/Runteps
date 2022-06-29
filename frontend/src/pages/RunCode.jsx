@@ -11,7 +11,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-import { pathString2 } from "../PathString";
 import Header from "../sections/Header";
 
 import "ace-builds/src-noconflict/worker-javascript";
